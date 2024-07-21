@@ -1,0 +1,15 @@
+#opportunites-management {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display:block;
+    gap: 0.5rem;
+    overflow: auto;
+    align-items: center;
+    text-align: center;
+    border: .1rem solid;
+  }
+
+  h1{
+    text-align: center;
+  }
