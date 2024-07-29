@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { OpportunitiesActionMenuComponent } from "./opportunities-action-menu/opportunities-action-menu.component";
-import { OpportunitiesResultsComponent } from './opportunities-results/opportunities-results.component';
+import { OpportunitiesResultsComponent } from './opportunities/opportunities.component';
 
 @Component({
   selector: 'app-opportunities-management',

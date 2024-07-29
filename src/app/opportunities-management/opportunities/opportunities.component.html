@@ -33,3 +33,10 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
 </div>
+<ul>
+  @for(oppertunity of filteredOpportunities; track oppertunity.name){
+  <li>
+    <app-opportunity [oppertunity]="oppertunity"></app-opportunity>
+  </li>
+  }
+</ul>

@@ -6,17 +6,18 @@ import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
+import { OpportunityComponent } from "../opportunity/opportunity.component";
 
 
 @Component({
-  selector: 'app-opportunities-results',
+  selector: 'app-opportunities',
   standalone: true,
-  imports: [ NgFor, MatTableModule,
+  imports: [NgFor, MatTableModule,
     MatInputModule,
     MatFormFieldModule,
-    MatButtonModule,],
-  templateUrl: './opportunities-results.component.html',
-  styleUrl: './opportunities-results.component.css'
+    MatButtonModule, OpportunityComponent],
+  templateUrl: './opportunities.component.html',
+  styleUrl: './opportunities.component.css'
 })
 export class OpportunitiesResultsComponent {
   oppertunities = Dummy_Volunteer_Opps
