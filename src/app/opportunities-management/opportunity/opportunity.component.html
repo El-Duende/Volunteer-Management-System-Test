@@ -1,9 +1,16 @@
+@if (isEditingOpportunity){
+<app-edit-opportunity
+  [opertuntity]="opportunity"
+  (close)="onCloseEditOpportunity()"
+></app-edit-opportunity>
+}
+
 <article class="opportunity">
   <div class="opportunityTitle">
     <h2>{{ opportunity.title }}</h2>
   </div>
   <div class="editButton">
-    <button>Edit</button>
+    <button (click)="onEditOpportunity()">Edit</button>
   </div>
   <div class="removeButton">
     <button (click)="onRemoveOpportunity()">Remove</button>
