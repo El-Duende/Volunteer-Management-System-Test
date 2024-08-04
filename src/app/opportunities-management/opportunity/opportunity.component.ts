@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
-import { VolunteerOppertunity } from '../opportunities/assets/VolunteerOppertunity.interface';
+import { Component, Input, inject} from '@angular/core';
+import { Opportunity } from './opportunity.model';
+import { OpportunitiesManagementService } from '../opportunities-management.service';
 
 @Component({
   selector: 'app-opportunity',
@@ -9,6 +10,10 @@ import { VolunteerOppertunity } from '../opportunities/assets/VolunteerOppertuni
   styleUrl: './opportunity.component.css'
 })
 export class OpportunityComponent {
-  @Input({required: true}) oppertunity!: VolunteerOppertunity;
+  @Input ({required: true}) opportunity!: Opportunity;
+  private OpportunitiesManagementService = inject(OpportunitiesManagementService)
 
+  onRemoveOpportunity(){
+    this.OpportunitiesManagementService.removeOpportunity(this.opportunity.opportunityId);
+  }
 }

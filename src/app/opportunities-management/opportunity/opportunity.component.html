@@ -1,9 +1,31 @@
-<article>
-  <h2>{{ oppertunity.name }}</h2>
-  <p>{{ oppertunity.center }}</p>
-  <time>{{ oppertunity.date }}</time>
-  <p>{{ oppertunity.req_skill }}</p>
-  <p class="actions">
-    <button>Complete</button>
-  </p>
+<article class="opportunity">
+  <div class="opportunityTitle">
+    <h2>{{ opportunity.title }}</h2>
+  </div>
+  <div class="editButton">
+    <button>Edit</button>
+  </div>
+  <div class="removeButton">
+    <button (click)="onRemoveOpportunity()">Remove</button>
+  </div>
+  <div class="locationAndDate">
+    <p>Location</p>
+    <h3>
+      {{ opportunity.location }} <time>On: {{ opportunity.date }}</time>
+    </h3>
+  </div>
+  <div class="requiredSkillsList">
+    <h3>Required Skills</h3>
+    <ul>
+      @for(skill of opportunity.reqSkills; track skill.value){
+      <li>{{ skill.value }}</li>
+      }
+    </ul>
+  </div>
+  <div class="matchedVolunteersList">
+    <h3>Volunteer Matches</h3>
+    <ul>
+      <li>test</li>
+    </ul>
+  </div>
 </article>

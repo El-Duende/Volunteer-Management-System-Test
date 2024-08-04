@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { OpportunitiesManagementComponent } from "./opportunities-management/opportunities-management.component";
+import { OpportunitiesManagementComponent } from './opportunities-management/opportunities-management.component';
 
 
 @Component({
