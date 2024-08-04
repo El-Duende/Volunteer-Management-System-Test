@@ -5,7 +5,7 @@ import { Skill } from "./opportunity/opportunity.model";
  @Injectable({providedIn: 'root'})
  export class OpportunitiesManagementService{
     private nextOpportunityIdNum = 6;
-    private freedOppotunityIdNums = [];
+    private freedOppotunityIdNums: string[] =[''];
     private opportunities = [
         {
             opportunityId: '1',
@@ -71,16 +71,19 @@ import { Skill } from "./opportunity/opportunity.model";
         let skills = [];
         let reqSkills = [{key: 0, value: ''}];
 
-        if(this.freedOppotunityIdNums.length === 0){
+        if(this.freedOppotunityIdNums.length === 1){
             opportunityId = this.nextOpportunityIdNum.toString();
             this.nextOpportunityIdNum += 1;
         }
 
-        if(this.freedOppotunityIdNums.length != 0){
-            opportunityId = this.freedOppotunityIdNums.pop.toString();
+        if(this.freedOppotunityIdNums.length > 1){
+            let temp = this.freedOppotunityIdNums.pop();
+            if(typeof(temp)==='string'){
+                opportunityId = temp;
+            }
         }
 
-        skills = opportunityData.reqSkills.split(" ");
+        skills = opportunityData.reqSkills.split(", ");
         skills.forEach((skill, index) =>{
             reqSkills.push(
                 {
@@ -102,7 +105,31 @@ import { Skill } from "./opportunity/opportunity.model";
 
     removeOpportunity(opportunityId: string){
         this.opportunities = this.opportunities.filter((opportunity)=> opportunity.opportunityId !== opportunityId);
+        this.freedOppotunityIdNums.push(opportunityId)
     }
 
+    editOpportunity(opportunityId: string, editedOpportunityData: NewOppportunityData){
+        let skills = [];
+        let reqSkills = [{key: 0, value: ''}];
+        skills = editedOpportunityData.reqSkills.split(", ");
+        skills.forEach((skill, index) =>{
+            reqSkills.push(
+                {
+                    key: index,
+                    value: skill
+                }
+            )
+        }
+        )
+
+        let opportunityToEdit = this.opportunities.find(opportunity => opportunity.opportunityId === opportunityId);
+        if(opportunityToEdit){
+            opportunityToEdit.title = editedOpportunityData.title;
+            opportunityToEdit.location = editedOpportunityData.location;
+            opportunityToEdit.date = editedOpportunityData.date;
+            opportunityToEdit.reqSkills = reqSkills;
+            
+        }
+    }
 
  }
