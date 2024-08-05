@@ -1,4 +1,4 @@
-import { Component,Output, EventEmitter,inject,Input } from '@angular/core';
+import { Component,Output, EventEmitter,inject,Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Opportunity, Skill } from '../opportunity/opportunity.model';
 import { NewOppportunityData } from '../opportunity/opportunity.model';
@@ -12,38 +12,39 @@ import { OpportunitiesManagementService } from '../opportunities-management.serv
   styleUrl: './edit-opportunity.component.css'
 })
 export class EditOpportunityComponent {
-  @Input({required: true}) opertuntity!: Opportunity;
+  @Input({required: true}) opportuntity!: Opportunity;
   @Output() close = new EventEmitter();
+
+  private taskService = inject(OpportunitiesManagementService)
 
   enteredTitle = '';
   enteredLocation = '';
-  enteredDate = '';
+  enteredDate: Date = new Date();
   enteredReqSkills = '';
 
-  private taskService = inject(OpportunitiesManagementService)
-  
+  ngOnInit():void{
+    this.enteredTitle = this.opportuntity.title;
+    this.enteredLocation = this.opportuntity.location;
+    this.enteredDate =  new Date(this.opportuntity.date);
+    this.enteredReqSkills =  this.getSkillString(this.opportuntity.reqSkills)
+  }
+
   onCancel(){
     this.close.emit();
   }
 
   onSubmit(){
-    this.taskService.editOpportunity( this.opertuntity.opportunityId,{
+    this.taskService.editOpportunity( this.opportuntity.opportunityId,{
       title: this.enteredTitle,
       location: this.enteredLocation,
-      date: this.enteredDate,
+      date: this.enteredDate.toString(),
       reqSkills: this.enteredReqSkills
     });
     this.close.emit();
   }
 
   getSkillString(skills: Skill[]){
-    let temp = '';
-    skills.forEach((skill, index)=>{
-      temp += skill.value;
-      if(index < skills.length -1){
-        temp += ', ';
-      }
-    });
-    return temp;
+   
+    return skills.map(skill => skill.value).join(', ');
   }
 }

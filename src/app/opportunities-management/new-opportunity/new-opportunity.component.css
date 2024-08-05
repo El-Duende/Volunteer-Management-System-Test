@@ -10,7 +10,7 @@
   dialog {
     width: 90%;
     max-width: 30rem;
-    background-color: #433352;
+    background-color: rgb(109, 176, 212);
     border-radius: 6px;
     border: none;
     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
@@ -21,14 +21,14 @@
   
   h2 {
     margin: 0;
-    color: #d0c2e1;
+    color: #ded5ea;
   }
   
   label {
     display: block;
     font-weight: bold;
     font-size: 0.85rem;
-    color: #ab9ac0;
+    color: #55515a;
   }
   
   input,
@@ -58,7 +58,7 @@
   }
   
   button[type="button"] {
-    color: #bdadcf;
+    color: #5f5b65;
   }
   
   button[type="button"]:hover,
@@ -67,14 +67,14 @@
   }
   
   button[type="submit"] {
-    background-color: #9c73ca;
+    background-color: #ca9d73;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease;
   }
   
   button[type="submit"]:hover,
   button[type="submit"]:active {
-    background-color: #895cce;
+    background-color: #e2862f;
     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
   }
   

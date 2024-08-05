@@ -44,8 +44,9 @@ import { Skill } from "./opportunity/opportunity.model";
         },    
     ]
 
-    getOpportunites(search: string){
+    getOpportunites(search: string, filter: string){
         if(search !== ''){
+            console.log(search);
             search = search.toLowerCase();
             return this.opportunities.filter((opportunity)=>
             opportunity.title.toLowerCase().includes(search)||
@@ -53,6 +54,12 @@ import { Skill } from "./opportunity/opportunity.model";
             opportunity.date.toLowerCase().includes(search)||this.checkSkills(opportunity.reqSkills, search)
             );
         }
+        /*if(filter !==''){
+            console.log(filter);
+            return this.opportunities.filter((opportunity)=>
+            opportunity.title.toLowerCase().includes(filter.toLowerCase())
+            );
+        }*/
         return this.opportunities;
     }
     
@@ -110,7 +117,7 @@ import { Skill } from "./opportunity/opportunity.model";
 
     editOpportunity(opportunityId: string, editedOpportunityData: NewOppportunityData){
         let skills = [];
-        let reqSkills = [{key: 0, value: ''}];
+        let reqSkills: Skill[] = [];
         skills = editedOpportunityData.reqSkills.split(", ");
         skills.forEach((skill, index) =>{
             reqSkills.push(
