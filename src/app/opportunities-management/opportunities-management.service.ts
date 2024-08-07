@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { NewOppportunityData } from "./opportunity/opportunity.model";
 import { Skill } from "./opportunity/opportunity.model";
+import { Opportunity } from "./opportunity/opportunity.model";
 
  @Injectable({providedIn: 'root'})
  export class OpportunitiesManagementService{
@@ -45,22 +46,19 @@ import { Skill } from "./opportunity/opportunity.model";
     ]
 
     getOpportunites(search: string, filter: string){
-        if(search !== ''){
-            console.log(search);
-            search = search.toLowerCase();
-            return this.opportunities.filter((opportunity)=>
+        search = search.toLowerCase();
+        return this.opportunities.filter((opportunity)=>{
+            let searchMatch =
             opportunity.title.toLowerCase().includes(search)||
             opportunity.location.toLowerCase().includes(search)||
-            opportunity.date.toLowerCase().includes(search)||this.checkSkills(opportunity.reqSkills, search)
-            );
-        }
-        /*if(filter !==''){
-            console.log(filter);
-            return this.opportunities.filter((opportunity)=>
-            opportunity.title.toLowerCase().includes(filter.toLowerCase())
-            );
-        }*/
-        return this.opportunities;
+            opportunity.date.toLowerCase().includes(search)||this.checkSkills(opportunity.reqSkills, search);
+
+            if(filter != 'All'){
+            let filterMatch = filter ? opportunity.location === filter: true;
+            return searchMatch && filterMatch;
+            }
+            return searchMatch;
+        });
     }
     
     checkSkills(skills: Skill[], search: string){
@@ -73,10 +71,21 @@ import { Skill } from "./opportunity/opportunity.model";
       return match;
     }
 
+    getLocationList(){
+        let locationList: string[] = [];
+
+        this.opportunities.forEach((opportunity: Opportunity)=>{
+            if(!locationList.includes(opportunity.location)){
+                locationList.push(opportunity.location);
+            }
+        })
+        return locationList;
+    }
+
     addOpportunity(opportunityData: NewOppportunityData){
         let opportunityId = '';
         let skills = [];
-        let reqSkills = [{key: 0, value: ''}];
+        let reqSkills: Skill[] = [];
 
         if(this.freedOppotunityIdNums.length === 1){
             opportunityId = this.nextOpportunityIdNum.toString();

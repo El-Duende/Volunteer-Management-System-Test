@@ -4,6 +4,7 @@ import { OpportunityComponent } from './opportunity/opportunity.component';
 import { OpportunitiesManagementService } from './opportunities-management.service';
 import { NewOpportunityComponent } from './new-opportunity/new-opportunity.component';
 import { NgIf } from '@angular/common';
+import { Opportunity } from './opportunity/opportunity.model';
 
 
 @Component({
@@ -16,22 +17,48 @@ import { NgIf } from '@angular/common';
 export class OpportunitiesManagementComponent {
   private opportunitiesServices = inject(OpportunitiesManagementService)
   enteredSearch = '';
-  filter = '';
+  selectedFilter = '';
 
   isAddingOpportunity = false;
+  opportunities: Opportunity[]=[];
+  locationList: string[] = [];
 
-  get filteredOpportunities(){
-      return this.opportunitiesServices.getOpportunites(this.enteredSearch, this.filter);
-      
+  ngOnInit(){
+    this.getOpportunities();
+    this.getLocationList();
+  }
+  getOpportunities(){
+    this.opportunities = this.opportunitiesServices.getOpportunites(this.enteredSearch, this.selectedFilter);
   }
   
+  getLocationList(){
+    this.locationList = this.opportunitiesServices.getLocationList();
+  }
+
+  onSearchChange(){
+    this.getOpportunities();
+  }
+
+  onFilterChange(event: Event){
+    let filterElement = event.target as HTMLSelectElement;
+    this.selectedFilter = filterElement.value;
+    this.getOpportunities()
+  }
 
   onCloseAddOpportunity(){
     this.isAddingOpportunity = false;
+    this.getLocationList();
+    this.getOpportunities();
   }
 
   onStartAddingOpportunity(){
     this.isAddingOpportunity = true;
+  }
+
+  onRemoveOpportunity(opportunityId: string){
+    this.opportunitiesServices.removeOpportunity(opportunityId);
+    this.getOpportunities();
+    this.getLocationList();
   }
 
 }

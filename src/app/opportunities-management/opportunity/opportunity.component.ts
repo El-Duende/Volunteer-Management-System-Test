@@ -1,8 +1,8 @@
-import { Component, Input, Output, inject} from '@angular/core';
+import { Component, Input, Output,EventEmitter, inject} from '@angular/core';
 import { Opportunity } from './opportunity.model';
 import { OpportunitiesManagementService } from '../opportunities-management.service';
 import { EditOpportunityComponent } from '../edit-opportunity/edit-opportunity.component';
-import { EventEmitter } from 'stream';
+//import { EventEmitter } from 'stream';
 
 @Component({
   selector: 'app-opportunity',
@@ -13,11 +13,14 @@ import { EventEmitter } from 'stream';
 })
 export class OpportunityComponent {
   @Input ({required: true}) opportunity!: Opportunity;
+  @Output() removeId = new EventEmitter(); 
+
   private OpportunitiesManagementService = inject(OpportunitiesManagementService)
   isEditingOpportunity = false;
 
   onRemoveOpportunity(){
-    this.OpportunitiesManagementService.removeOpportunity(this.opportunity.opportunityId);
+    this.removeId.emit(this.opportunity.opportunityId);
+    //this.OpportunitiesManagementService.removeOpportunity(this.opportunity.opportunityId);
   }
 
   onEditOpportunity(){
