@@ -19,13 +19,13 @@ export class EditOpportunityComponent {
 
   enteredTitle = '';
   enteredLocation = '';
-  enteredDate: Date = new Date();
+  enteredDate = '';
   enteredReqSkills = '';
 
   ngOnInit():void{
     this.enteredTitle = this.opportuntity.title;
     this.enteredLocation = this.opportuntity.location;
-    this.enteredDate =  new Date(this.opportuntity.date);
+    this.enteredDate =  this.opportuntity.date;
     this.enteredReqSkills =  this.getSkillString(this.opportuntity.reqSkills)
   }
 

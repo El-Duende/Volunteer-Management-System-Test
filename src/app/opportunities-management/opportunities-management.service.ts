@@ -52,12 +52,20 @@ import { Opportunity } from "./opportunity/opportunity.model";
             opportunity.title.toLowerCase().includes(search)||
             opportunity.location.toLowerCase().includes(search)||
             opportunity.date.toLowerCase().includes(search)||this.checkSkills(opportunity.reqSkills, search);
+            
+            if(filter =='All'){
+                return searchMatch;
+            }
+            if(filter =='60'){
+                let opportunityDate = new Date(opportunity.date);
+                let toDate = new Date()
+                toDate.setDate(toDate.getDate()+60);
+                let dateMatch = opportunityDate <= toDate;
+                return searchMatch && dateMatch;
+            }
 
-            if(filter != 'All'){
             let filterMatch = filter ? opportunity.location === filter: true;
             return searchMatch && filterMatch;
-            }
-            return searchMatch;
         });
     }
     
